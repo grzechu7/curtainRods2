@@ -1,0 +1,1 @@
+alter table longcurtain add column move_to int not null;

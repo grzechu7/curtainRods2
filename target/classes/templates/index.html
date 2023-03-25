@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: headerfiles"/>  /*/-->
+
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/general.html :: navfiles"/>  /*/-->
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h2> Wprowadź długość karniszy w cm</h2>
+            <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+            <h2 class = "text-center" th:if="${message != null}" th:text="${message}"> wypełnij brakujące pole</h2>
+            <div class = "card-body" >
+                <!--/*@thymesVar id="customer" type="curtainRod.entity.Customer"*/-->
+                <form action="#" method="POST" th:action="@{/}" th:object="${customer}">
+                    <p class="C(red)" th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+                    <div class ="form-group">
+                        <label> Lokalizacja instalacji: </label>
+                        <input
+                                type="hidden"
+                                name="_csrf"
+                                value="${_csrf.token}">
+                        <label  type="hidden"
+                                for="clientId"></label>
+                        <input type="hidden"
+                               id="clientId"
+                               name="clientId" th:value="${session.clientId != null ? session.clientId : 1}">
+
+                        <input
+                                type = "text"
+                                name = "place"
+                                th:field = "*{place}"
+                                class = "form-control"
+                                placeholder="np. Gdańsk"
+                                th:errorclass="'Bdc(red)'"
+                        />
+                        <label> Email: </label>
+                        <input
+                                type = "text"
+                                name = "email"
+                                th:field = "*{email}"
+                                class = "form-control"
+                                placeholder="np. jkowalski@gmail.com"
+                                th:errorclass="'Bdc(red)'"
+                        />
+                        <label> Telefon: </label>
+                        <input
+                                type = "text"
+                                name = "phone"
+                                th:field = "*{phone}"
+                                class = "form-control"
+                                placeholder="np. 656 345 532"
+                        />
+                        <div class ="col-lg-16 col-md-16 col-sm-16 container justify-content-center card" style="margin: 5px 0 5px 0;">
+                            <fieldset th:each="step, stepStat: *{steps}">
+                                <legend th:text="|Pomieszczenie ${stepStat.index + 1} |"> </legend>
+                                <div class ="form-group">
+                                    <label> Nazwa pomieszczenia: </label>
+                                    <input
+                                            type = "text"
+                                            name = "room"
+                                            th:field = "*{steps[__${stepStat.index}__].room}"
+                                            class = "form-control"
+                                            placeholder="np. kuchnia"
+                                            th:errorclass="'Bdc(red)'"
+                                    />
+                                </div>
+
+                                <div class ="form-group">
+                                    <label> Długaść okna: </label>
+                                    <input
+                                            type = "number"
+                                            name = "lengthCurtainRod"
+                                            th:field = "*{steps[__${stepStat.index}__].lengthCurtainRod}"
+                                            class = "form-control"
+                                            placeholder="Długość karnisza"
+                                            th:errorclass="'Bdc(red)'"
+                                    />
+                                </div>
+
+                                <div class ="form-group">
+                                    <label> Długość ściany z lewej strony: </label>
+                                    <input
+                                            type = "number"
+                                            name = "leftWall"
+                                            th:field = "*{steps[__${stepStat.index}__].leftWall}"
+                                            class = "form-control"
+                                            placeholder="Długość ściany z lewej strony"
+                                            th:errorclass="'Bdc(red)'"
+                                    />
+                                </div>
+
+                                <div class ="form-group">
+                                    <label> Długość ściany z prawej strony: </label>
+                                    <input
+                                            type = "number"
+                                            name = "rightWall"
+                                            th:field = "*{steps[__${stepStat.index}__].rightWall}"
+                                            class = "form-control"
+                                            placeholder="Długość ściany z prawej strony"
+                                            th:errorclass="'Bdc(red)'"
+                                    />
+                                </div>
+                                <div class ="form-group">
+                                    <label> Kierunek przesuwania zasłony: </label>
+                                    <select name = "move_to" class="form-select" aria-label="Default select example" th:field="*{steps[__${stepStat.index}__].move_to}">
+                                        <option value=1>na lewo</option>
+                                        <option value=2>na prawo</option>
+                                        <option value=3>kurtynowo</option>
+                                    </select>
+                                </div>
+                                <div class ="form-group">
+                                    <label> Falowanie: </label>
+                                    <select name = "wave" class="form-select" aria-label="Default select example" th:field="*{steps[__${stepStat.index}__].wave}">
+                                        <option value=1>Brak</option>
+                                        <option value=2>60%</option>
+                                        <option value=3>80%</option>
+                                        <option value=4>100%</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                            <div>
+                                <button type="submit" name="addStep" class = "btn btn-primary" style="margin: 5px 0 5px 0">+</button>
+                            </div>
+                        </div>
+
+                        <div class = "box-footer">
+                            <button type="submit" class = "btn btn-primary" >Zapisz</button>
+                            <button type="reset" class = "btn btn-primary">Wyczyść</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: footerfiles"/>  /*/-->
+</div>
+</body>
+</html>

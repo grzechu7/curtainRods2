@@ -1,0 +1,8 @@
+spring:
+  mysql.console:
+    enabled: false
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/homeso_curtain'
+
+    username: 'root'
+    password:

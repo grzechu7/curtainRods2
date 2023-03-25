@@ -1,0 +1,8 @@
+spring:
+  mysql.console:
+    enabled: true
+  datasource:
+    url: 'jdbc:mysql://mysql-wycenakarnisze.alwaysdata.net:3306/wycenakarnisze_curtain'
+
+    username: 305454
+    password: 'Grzechu123$'

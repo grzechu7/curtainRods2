@@ -1,0 +1,4 @@
+2023-01-16 18:24:01 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "flyway_schema_history""flyway_schema_history" nie istnieje
+Table "flyway_schema_history""flyway_schema_history" not found; SQL statement:
+SELECT * FROM "flyway_schema_history""flyway_schema_history" [42102-214]

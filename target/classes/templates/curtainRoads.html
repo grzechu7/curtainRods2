@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: headerfiles"/>  /*/-->
+
+
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/general.html :: navfiles"/>  /*/-->
+
+<div class ="container">
+    <div class = "row">
+
+
+        <h2> Lista karniszy (wymiary w cm)</h2>
+    </div>
+
+    <div class = "row">
+        <div class = "col-lg-3">
+            <a th:href = "@{/add_curtain}" class = "btn btn-primary btn-sm mb-3"> Dodaj karnisz</a>
+            <a th:href = "@{/curtainPrice}" class = "btn btn-primary btn-sm mb-3"> Zobacz wycenę</a>
+        </div>
+    </div>
+    <table class = "table table-striped table-bordered">
+        <thead class = "table-dark">
+        <tr>
+            <th> Nazwa pomieszczenia</th>
+            <th> Długość karnisza</th>
+            <th> Długość ściany z lewej strony</th>
+            <th> Długość ściany z prawej strony</th>
+            <th> Kierunek przesuwania zasłony</th>
+            <th> Falowanie</th>
+            <th> Potrzebna odległość na ścianie bocznej</th>
+            <th> </th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="item : ${sizeWal}">
+            <td th:if="${item.room}" th:text="${item.room}"></td>
+            <td th:if="${item.length_curtain_rod}" th:text="${item.length_curtain_rod}"></td>
+            <td th:if="${item.left_wall}" th:text="${item.left_wall}"></td>
+            <td th:if="${item.right_wall}" th:text="${item.right_wall}"></td>
+            <td th:if="${item.description_pl}" th:text="${item.description_pl}"></td>
+            <td th:if="${item.size_pl}" th:text="${item.size_pl}"></td>
+            <td>
+        <span th:text="${item.move_to == 3 ? #numbers.formatDecimal(item.calculated_value, 0, 0) + ' po obu stronach' : #numbers.formatDecimal(item.calculated_value, 0, 0)}"
+              th:class="${item.left_wall - item.calculated_value < 0} ? 'Bdc(red)' : ''"></span>
+                <span th:if="${item.left_wall - item.calculated_value < 0 and item.move_to==1}"
+                      th:text="${'za mało miejsca na lewej ścianie o: ' + #numbers.formatDecimal(T(java.lang.Math).abs(item.left_wall - item.calculated_value), 0, 0)}" style="color: red;"></span>
+                <span th:if="${item.right_wall - item.calculated_value < 0 and item.move_to==2}"
+                      th:text="${'za mało miejsca na prawej ścianie o: ' + #numbers.formatDecimal(T(java.lang.Math).abs(item.right_wall - item.calculated_value), 0, 0)}" style="color: red;"></span>
+                <span th:if="${item.left_wall - item.calculated_value < 0 and item.move_to==3}"
+                      th:text="${'za mało miejsca na lewej ścianie o: ' + #numbers.formatDecimal(T(java.lang.Math).abs(item.left_wall - item.calculated_value), 0, 0)}" style="color: red;"></span>
+                <span th:if="${item.right_wall - item.calculated_value < 0 and item.move_to==3}"
+                      th:text="${'za mało miejsca na prawej ścianie o: ' + #numbers.formatDecimal(T(java.lang.Math).abs(item.right_wall - item.calculated_value), 0, 0)}" style="color: red;"></span>
+            </td>
+            <td>
+                <a th:href = "@{/edit_curtain/{id}(id=${item.longcurtain_id})}"
+                   class = "btn btn-primary" style="margin: 0 0 5px 0">Popraw</a>
+
+                <a th:href = "@{/curtainRoads/{id}(id=${item.longcurtain_id})}"
+                   class = "btn btn-danger">Usuń</a>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <!--/*/ <th:block th:include="fragments/general.html :: footerfiles"/>  /*/-->
+</div>
+</body>
+</html>

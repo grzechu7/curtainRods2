@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: headerfiles"/>  /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/general.html :: navfiles"/>  /*/-->
+<br>
+<br>
+<div class = "container">
+    <div class = "row" >
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h2 class = "text-center">Dodaj wymiary karnisza</h2>
+            <div class = "card-body" >
+                <!--<form th:action="@{/curtainRoads/update/{id}(id=${longcurtain.id})}" method="post">-->
+                <h2 class = "text-center" th:if="${message != null}" th:text="${message}"> wypełnij brakujące pole</h2>
+                <form th:action="@{/curtainRoads/add}" th:object="${longcurtainUp}" method="POST">
+                    <p class="C(red)" th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+                  <input
+                          type="hidden"
+                          name="_csrf"
+                          value="${_csrf.token}">
+
+                    <label  type="hidden"
+                            for="clientIdl"></label>
+                    <input type="hidden"
+                           id="clientIdl"
+                           name="clientIdl" th:value="${session.clientIdl != null ? session.clientIdl : 1}">
+
+                  <div  class ="form-group">
+                      <label for="room"> Nazwa pomieszczenia: </label>
+                      <input
+                              type = "text"
+                              id="room"
+                              name = "room"
+                              th:value="*{room}"
+                              class = "form-control"
+                              th:errorclass="'Bdc(red)'"
+                      />
+                  </div>
+
+                  <div class ="form-group">
+                      <label> Długaść okna: </label>
+                      <input
+                              type = "number"
+                              id="lengthCurtainRod"
+                              name = "lengthCurtainRod"
+                              th:value="*{lengthCurtainRod}" required
+                              class = "form-control"
+                              th:errorclass="'Bdc(red)'"
+
+                      />
+                  </div>
+
+                  <div for="leftWall" class ="form-group">
+                      <label> Długość ściany z lewej strony: </label>
+                      <input
+                              type = "number"
+                              id="leftWall"
+                              name = "leftWall"
+                              th:value="*{leftWall}" required
+                              class = "form-control"
+                              th:errorclass="'Bdc(red)'"
+
+                      />
+                  </div>
+
+                  <div for="rightWall" class ="form-group">
+                      <label> Długość ściany z prawej strony: </label>
+                      <input
+                              type = "number"
+                              id="rightWall"
+                              name = "rightWall"
+                              th:value="*{rightWall}" required
+                              class = "form-control"
+                              th:errorclass="'Bdc(red)'"
+
+                      />
+                  </div>
+                <div class ="form-group">
+                <label for="move_to">Kierunek przesuwania zasłony:</label>
+                <select id="move_to" name="move_to" th:value="*{move_to}" class="form-select" aria-label="Default select example">
+                    <!-- <option value="">-- Select Move To --</option> -->
+                    <th:block th:each="dictMoveTo : ${dictMoveTos}">
+                        <option th:value="${dictMoveTo.id}" th:text="${dictMoveTo.descriptionPl}" th:selected="${dictMoveTo.id == move_to}"></option>
+                    </th:block>
+                </select><br/>
+                </div>
+
+                <div class ="form-group">
+                <label for="wave">Falowanie zasłon:</label>
+                <select id="wave" name="wave" th:value="*{wave}" class="form-select" aria-label="Default select example">
+                    <!-- <option value="">-- Select Wave --</option> -->
+                    <th:block th:each="dictWave : ${dictWaves}">
+                        <option th:value="${dictWave.id}" th:text="${dictWave.sizePl}" th:selected="${dictWave.id == wave}"></option>
+                    </th:block>
+                </select><br/>
+                </div>
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                           Dodaj wymiary
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: footerfiles"/>  /*/-->
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: headerfiles"/>  /*/-->
+
+
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/general.html :: navfiles"/>  /*/-->
+
+<div class ="container">
+    <div class = "row">
+
+
+        <h2> Wycena karniszy</h2>
+    </div>
+
+    <div class = "row">
+        <div class = "col-lg-3">
+            <a th:href = "@{/add_curtain}" class = "btn btn-primary btn-sm mb-3"> Dodaj karnisz</a>
+            <a th:href = "@{/curtainRoads}" class = "btn btn-primary btn-sm mb-3"> Zobacz wymiary</a>
+        </div>
+    </div>
+    <table class = "table table-striped table-bordered">
+        <thead class = "table-dark">
+        <tr>
+            <th> Pomieszczenie</th>
+            <th> Wymiar karniszy (cm)</th>
+            <th> Cena karniszy zł brutto</th>
+
+            <th> </th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr  th:each="curtainPrice : ${curtainPrice}" th:if="${curtainPrice.sumFinalPrice == 0}">
+            <td th:text="${curtainPrice.room}"></td>
+            <td th:text="${curtainPrice.curtainLength}"></td>
+            <td th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(curtainPrice.finalPrice), 1, 'POINT', 2, 'COMMA')} "></td>
+
+            <td>
+            <a th:href = "@{/edit_curtain/{id}(id=${curtainPrice.longcurtainId})}"
+               class = "btn btn-primary" >Popraw</a>
+
+            <a th:href = "@{/curtainPrice/{id}(id=${curtainPrice.longcurtainId})}"
+               class = "btn btn-danger">Usuń</a>
+
+            </td>
+
+            </td>
+        </tr>
+        <tr th:if="${curtainPrice.size() > 0}">
+            <td>Podsumowanie</td>
+            <td> </td>
+            <td th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(curtainPrice.get(curtainPrice.size()-1).sumFinalPrice), 1, 'POINT', 2, 'COMMA')}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <!--/*/ <th:block th:include="fragments/general.html :: footerfiles"/>  /*/-->
+</div>
+</body>
+</html>

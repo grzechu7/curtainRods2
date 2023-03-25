@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="curtainRod_25.03.2023" />
+        <module name="curtainRods2" />
+        <module name="curtainRod" />
+        <module name="curtainRods3a_popsuty" />
+        <module name="curtainRod_19.03.2023_2" />
+        <module name="curtainRods3a" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="11" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="curtainRod" options="-parameters" />
+      <module name="curtainRod_19.03.2023_2" options="-parameters" />
+      <module name="curtainRod_25.03.2023" options="-parameters" />
+      <module name="curtainRods2" options="-parameters" />
+      <module name="curtainRods3a" options="-parameters" />
+      <module name="curtainRods3a_popsuty" options="-parameters" />
+    </option>
+  </component>
+</project>
